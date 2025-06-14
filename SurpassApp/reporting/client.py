@@ -11,5 +11,6 @@ def fetch_test_sessions() -> List[TestSession]:
     resp = requests.get(f"{BASE_URL}/TestSession", auth=auth)
     if resp.status_code != 200:
         resp.raise_for_status()
-    items = resp.json()
+    data = resp.json()
+    items = data.get("response", [])
     return [TestSession(**it) for it in items]
