@@ -18,3 +18,15 @@ from settings import Settings
 settings = Settings()
 print(settings.surpass_user)
 ```
+
+## Fetching Test Sessions
+
+Use `fetch_test_sessions` to retrieve test sessions from the Surpass API:
+
+```python
+from SurpassApp.reporting.client import fetch_test_sessions
+
+sessions = fetch_test_sessions()
+for session in sessions:
+    print(session.id, session.reference)
+```
