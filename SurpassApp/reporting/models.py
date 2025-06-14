@@ -28,8 +28,11 @@ class Test(BaseModel):
 
 class TestSession(BaseModel):
     id: int
-    reference: str
-    href: str
+    candidate_name: str | None = None
+    score: float | None = None
+    status: str | None = None
+    reference: str | None = None
+    href: str | None = None
     awaitingMarkingSubmission: bool | None = None
     markingProgressPercent: int | None = None
     candidate: Candidate | None = None
