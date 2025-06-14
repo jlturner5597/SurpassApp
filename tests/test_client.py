@@ -10,6 +10,7 @@ from SurpassApp.reporting.client import fetch_test_sessions
 from SurpassApp.reporting.models import TestSession
 from SurpassApp.core.auth import get_basic_auth_header
 from SurpassApp.reporting.routes import check_connection
+from fastapi import HTTPException
 
 
 @pytest.fixture(autouse=True)
@@ -21,7 +22,7 @@ def set_env(monkeypatch):
 def test_fetch_success(requests_mock: Mocker):
     sample = [{"id":"1","candidate_name":"Alice","score":95.0,"status":"complete"}]
     requests_mock.get(
-        "https://ussharedsandbox.surpass.com/api/v2/TestSessions",
+        "https://ussharedsandbox.surpass.com/api/v2/TestSession",
         json=sample, status_code=200
     )
     sessions = fetch_test_sessions()
@@ -30,7 +31,7 @@ def test_fetch_success(requests_mock: Mocker):
 
 def test_fetch_error(requests_mock: Mocker):
     requests_mock.get(
-        "https://ussharedsandbox.surpass.com/api/v2/TestSessions",
+        "https://ussharedsandbox.surpass.com/api/v2/TestSession",
         status_code=500, text="Server error"
     )
     with pytest.raises(requests.HTTPError):
@@ -41,9 +42,9 @@ def test_basic_auth_header():
     assert "Authorization" in hdr and hdr["Authorization"].startswith("Basic ")
 
 def test_check_connection_success(monkeypatch, requests_mock: Mocker):
-    # stub the /testsessions?top=1 call
+    # stub the /TestSession?top=1 call
     requests_mock.get(
-        "https://ussharedsandbox.surpass.com/api/v2/testsessions?top=1",
+        "https://ussharedsandbox.surpass.com/api/v2/TestSession?top=1",
         status_code=200, json=[]
     )
     resp = check_connection()
@@ -51,8 +52,8 @@ def test_check_connection_success(monkeypatch, requests_mock: Mocker):
 
 def test_check_connection_fail(monkeypatch, requests_mock: Mocker):
     requests_mock.get(
-        "https://ussharedsandbox.surpass.com/api/v2/testsessions?top=1",
+        "https://ussharedsandbox.surpass.com/api/v2/TestSession?top=1",
         status_code=401, text="Unauthorized"
     )
-    with pytest.raises(requests.HTTPError):
+    with pytest.raises(HTTPException):
         check_connection()

@@ -8,6 +8,7 @@ class Candidate(BaseModel):
 
 
 class TestForm(BaseModel):
+    __test__ = False
     id: int
     reference: str
     name: str
@@ -20,6 +21,7 @@ class Centre(BaseModel):
 
 
 class Test(BaseModel):
+    __test__ = False
     id: int
     reference: str
     name: str
@@ -27,6 +29,7 @@ class Test(BaseModel):
 
 
 class TestSession(BaseModel):
+    __test__ = False
     id: int
     candidate_name: str | None = None
     score: float | None = None
