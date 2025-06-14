@@ -1,9 +1,10 @@
 # surpass_app/reporting/routes.py
 from fastapi import APIRouter, HTTPException
 from typing import List
-import requests
-from SurpassApp.reporting.client import fetch_test_sessions
+from SurpassApp.core.auth import get_basic_auth_header
+from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_connection
 from SurpassApp.reporting.models import TestSession
+import requests
 
 router = APIRouter(prefix="/reports", tags=["Reporting"])
 
@@ -21,3 +22,11 @@ def get_test_sessions():
         return fetch_test_sessions()
     except requests.HTTPError as e:
         raise HTTPException(status_code=502, detail=str(e))
+    
+@router.get("/check-connection", summary="Verify Surpass API connectivity")
+def check_connection():
+    """Ping a lightweight Surpass endpoint to confirm auth."""
+    try:
+        return check_surpass_connection()
+    except requests.HTTPError as e:
+        raise HTTPException(status_code=502, detail=f"Auth failed: {e}")

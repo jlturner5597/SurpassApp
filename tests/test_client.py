@@ -8,6 +8,8 @@ import requests
 from requests_mock import Mocker
 from SurpassApp.reporting.client import fetch_test_sessions
 from SurpassApp.reporting.models import TestSession
+from SurpassApp.core.auth import get_basic_auth_header
+from SurpassApp.reporting.routes import check_connection
 
 
 @pytest.fixture(autouse=True)
@@ -33,3 +35,24 @@ def test_fetch_error(requests_mock: Mocker):
     )
     with pytest.raises(requests.HTTPError):
         fetch_test_sessions()
+
+def test_basic_auth_header():
+    hdr = get_basic_auth_header()
+    assert "Authorization" in hdr and hdr["Authorization"].startswith("Basic ")
+
+def test_check_connection_success(monkeypatch, requests_mock: Mocker):
+    # stub the /testsessions?top=1 call
+    requests_mock.get(
+        "https://ussharedsandbox.surpass.com/api/v2/testsessions?top=1",
+        status_code=200, json=[]
+    )
+    resp = check_connection()
+    assert resp["status"] == "connected"
+
+def test_check_connection_fail(monkeypatch, requests_mock: Mocker):
+    requests_mock.get(
+        "https://ussharedsandbox.surpass.com/api/v2/testsessions?top=1",
+        status_code=401, text="Unauthorized"
+    )
+    with pytest.raises(requests.HTTPError):
+        check_connection()
