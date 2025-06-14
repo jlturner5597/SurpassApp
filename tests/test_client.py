@@ -1,12 +1,13 @@
 # tests/test_client.py
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import pytest
 import requests
 from requests_mock import Mocker
 from SurpassApp.reporting.client import fetch_test_sessions
 from SurpassApp.reporting.models import TestSession
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 @pytest.fixture(autouse=True)
