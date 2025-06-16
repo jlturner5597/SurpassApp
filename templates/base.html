@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>{{ title or "Surpass Utilities" }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+  <link id="theme-link" rel="stylesheet" href="{{ url_for('static', path='css/style-light.css') }}" />
 </head>
 <body>
   <header>
     <h1>Surpass Utilities</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
     <nav>
       <a href="/">Home</a> |
       <a href="/reports/test-sessions">Test Sessions</a>
@@ -22,5 +23,23 @@
   <footer>
     <small>© 2025 Surpass Utilities</small>
   </footer>
+  <script>
+    function setTheme(theme) {
+      const link = document.getElementById('theme-link');
+      link.href = '/static/css/style-' + theme + '.css';
+      localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+      const current = localStorage.getItem('theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      setTheme(next);
+    }
+
+    (function() {
+      const saved = localStorage.getItem('theme') || 'light';
+      setTheme(saved);
+    })();
+  </script>
 </body>
 </html>
