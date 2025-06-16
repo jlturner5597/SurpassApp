@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Test Sessions Report</h2>
+  {% if sessions %}
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Candidate</th><th>Score</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for s in sessions %}
+          <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.candidate_name }}</td>
+            <td>{{ s.score }}</td>
+            <td>{{ s.status }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No sessions found.</p>
+  {% endif %}
+{% endblock %}

@@ -1,10 +1,13 @@
 # surpass_app/reporting/routes.py
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Request, HTTPException
 from typing import List
 from SurpassApp.core.auth import get_basic_auth_header
 from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_connection
 from SurpassApp.reporting.models import TestSession
 import requests
+from fastapi.templating import Jinja2Templates
+
+templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(prefix="/reports", tags=["Reporting"])
 
@@ -13,7 +16,7 @@ def ping_reporting():
     return {"module": "reporting", "status": "ok"}
 
 @router.get(
-  "/test-sessions",
+  "/test-sessions/json",
   response_model=List[TestSession],
   summary="Fetch all test sessions from Surpass"
 )
@@ -30,3 +33,14 @@ def check_connection():
         return check_surpass_connection()
     except requests.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Auth failed: {e}")
+    
+@router.get("/test-sessions", summary="Test Sessions (HTML view)")
+def view_test_sessions(request: Request):
+    try:
+        sessions: List[TestSession] = fetch_test_sessions()
+    except requests.HTTPError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    return templates.TemplateResponse(
+        "test_sessions.html",
+        {"request": request, "sessions": sessions}
+    )
