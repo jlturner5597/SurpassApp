@@ -1,0 +1,6 @@
+body { font-family: sans-serif; margin: 0; padding: 1rem; }
+header, footer { background: #f4f4f4; padding: 0.5rem 1rem; }
+nav a { margin-right: 1rem; text-decoration: none; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { padding: 0.5rem; border: 1px solid #ddd; }
+tbody tr:nth-child(even) { background: #fafafa; }
