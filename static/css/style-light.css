@@ -1,0 +1,21 @@
+:root {
+  --color-primary: #1b66b0;
+  --color-secondary: #275163;
+  --color-accent: #f08021;
+  --color-success: #12a364;
+  --color-info: #36aae0;
+  --background: #ffffff;
+  --surface: #f4f4f4;
+  --text-color: #1f1f1f;
+  --table-alt: #fafafa;
+  --font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body { font-family: var(--font-family); margin: 0; padding: 1rem; background: var(--background); color: var(--text-color); }
+header, footer { background: var(--surface); padding: 0.5rem 1rem; }
+nav a { margin-right: 1rem; text-decoration: none; color: var(--color-primary); }
+nav a:hover { color: var(--color-accent); }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { padding: 0.5rem; border: 1px solid #ddd; }
+tbody tr:nth-child(even) { background: var(--table-alt); }
+button.theme-toggle { float: right; margin-left: 1rem; }
