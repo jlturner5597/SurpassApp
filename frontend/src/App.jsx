@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useMemo, useState } from 'react'
+import { ThemeProvider, CssBaseline, AppBar, Toolbar, IconButton, Button, Container } from '@mui/material'
+import { Brightness4, Brightness7 } from '@mui/icons-material'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { lightTheme, darkTheme } from './theme'
+import Home from './pages/Home'
+import Sessions from './pages/Sessions'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [mode, setMode] = useState(() => localStorage.getItem('theme') || 'light')
+
+  const theme = useMemo(() => (mode === 'light' ? lightTheme : darkTheme), [mode])
+
+  const toggleTheme = () => {
+    const next = mode === 'light' ? 'dark' : 'light'
+    setMode(next)
+    localStorage.setItem('theme', next)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit" component={Link} to="/">Home</Button>
+            <Button color="inherit" component={Link} to="/sessions">Sessions</Button>
+            <IconButton color="inherit" onClick={toggleTheme} sx={{ marginLeft: 'auto' }}>
+              {mode === 'light' ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Container sx={{ marginTop: 2 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sessions" element={<Sessions />} />
+          </Routes>
+        </Container>
+      </Router>
+    </ThemeProvider>
   )
 }
-
-export default App
