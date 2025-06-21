@@ -3,6 +3,13 @@ import { useEffect, useState } from 'react'
 import PageLayout from '../components/PageLayout'
 import DataTable from '../components/DataTable'
 
+const columns = [
+  { field: 'id', headerName: 'ID' },
+  { field: 'candidate_name', headerName: 'Candidate' },
+  { field: 'score', headerName: 'Score' },
+  { field: 'status', headerName: 'Status' },
+]
+
 export default function Sessions() {
   const [sessions, setSessions] = useState([])
   const [loading, setLoading] = useState(true)
@@ -27,7 +34,7 @@ export default function Sessions() {
   } else if (error) {
     content = <Alert severity="error">{error}</Alert>
   } else {
-    content = <DataTable rows={sessions} />
+    content = <DataTable columns={columns} rows={sessions} />
   }
 
   return (

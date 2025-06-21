@@ -1,26 +1,35 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
+import PropTypes from 'prop-types'
 
-export default function DataTable({ rows }) {
+export default function DataTable({ columns, rows }) {
   return (
     <Table size="small">
       <TableHead>
         <TableRow>
-          <TableCell>ID</TableCell>
-          <TableCell>Candidate</TableCell>
-          <TableCell>Score</TableCell>
-          <TableCell>Status</TableCell>
+          {columns.map((col) => (
+            <TableCell key={col.field}>{col.headerName}</TableCell>
+          ))}
         </TableRow>
       </TableHead>
       <TableBody>
-        {(rows || []).map((r) => (
-          <TableRow key={r.id}>
-            <TableCell>{r.id}</TableCell>
-            <TableCell>{r.candidate_name}</TableCell>
-            <TableCell>{r.score}</TableCell>
-            <TableCell>{r.status}</TableCell>
+        {rows.map((row, index) => (
+          <TableRow key={row.id || index}>
+            {columns.map((col) => (
+              <TableCell key={col.field}>{row[col.field]}</TableCell>
+            ))}
           </TableRow>
         ))}
       </TableBody>
     </Table>
   )
+}
+
+DataTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      field: PropTypes.string.isRequired,
+      headerName: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
