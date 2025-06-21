@@ -44,3 +44,11 @@ def view_test_sessions(request: Request):
         "test_sessions.html",
         {"request": request, "sessions": sessions}
     )
+
+@router.get("/test-sessions/react", summary="Test Sessions React view")
+def view_test_sessions_react(request: Request):
+    """Render a React-based page that fetches session data asynchronously."""
+    return templates.TemplateResponse(
+        "test_sessions_react.html",
+        {"request": request}
+    )
