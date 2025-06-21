@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 export default function DataTable({ columns, rows }) {
   return (
-    <Table size="small">
+    <Table>
       <TableHead>
         <TableRow>
-          {columns.map((col) => (
+          {columns.map(col => (
             <TableCell key={col.field}>{col.headerName}</TableCell>
           ))}
         </TableRow>
@@ -14,7 +14,7 @@ export default function DataTable({ columns, rows }) {
       <TableBody>
         {rows.map((row, index) => (
           <TableRow key={row.id || index}>
-            {columns.map((col) => (
+            {columns.map(col => (
               <TableCell key={col.field}>{row[col.field]}</TableCell>
             ))}
           </TableRow>
