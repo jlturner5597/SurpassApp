@@ -1,7 +1,6 @@
 # surpass_app/reporting/routes.py
 from fastapi import APIRouter, Request, HTTPException
 from typing import List
-from SurpassApp.core.auth import get_basic_auth_header
 from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_connection
 from SurpassApp.reporting.models import TestSession
 import requests
