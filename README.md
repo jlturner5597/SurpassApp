@@ -1,6 +1,11 @@
 # SurpassApp
 Surpass utility application
 
+## Home Screen
+
+Start the FastAPI app using `python main.py` and navigate to `http://localhost:8000/`.
+The home page provides a short overview of the available modules and links to key routes.
+
 ## Settings
 
 The project uses [Pydantic](https://docs.pydantic.dev/) to load configuration from a `.env` file. Create a file named `.env` in the project root with the following variables:
