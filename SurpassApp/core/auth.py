@@ -1,6 +1,5 @@
 # surpass_app/core/auth.py
 import base64
-from typing import Dict
 from SurpassApp.core.config import settings
 
 def get_basic_auth_header() -> dict[str, str]:

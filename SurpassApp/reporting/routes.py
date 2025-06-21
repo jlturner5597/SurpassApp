@@ -1,7 +1,6 @@
 # surpass_app/reporting/routes.py
 from fastapi import APIRouter, Request, HTTPException
 from typing import List
-from SurpassApp.core.auth import get_basic_auth_header
 from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_connection
 from SurpassApp.reporting.models import TestSession
 import requests
@@ -43,4 +42,12 @@ def view_test_sessions(request: Request):
     return templates.TemplateResponse(
         "test_sessions.html",
         {"request": request, "sessions": sessions}
+    )
+
+@router.get("/test-sessions/react", summary="Test Sessions React view")
+def view_test_sessions_react(request: Request):
+    """Render a React-based page that fetches session data asynchronously."""
+    return templates.TemplateResponse(
+        "test_sessions_react.html",
+        {"request": request}
     )

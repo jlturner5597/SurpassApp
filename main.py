@@ -11,11 +11,21 @@ from SurpassApp.users.routes import router as users_router
 
 app = FastAPI(title="Surpass Utilities")
 
+# Build paths
+FRONTEND_DIST = Path(__file__).resolve().parent / "frontend" / "dist"
+
+
+@app.get("/app/{full_path:path}")
+def serve_frontend(full_path: str):
+    """Serve static assets or fallback to the SPA index file."""
+    file_path = FRONTEND_DIST / full_path
+    if file_path.exists():
+        return FileResponse(file_path)
+    return FileResponse(FRONTEND_DIST / "index.html")
+
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Serve built frontend assets
-FRONTEND_DIST = Path("frontend/dist")
+app.mount("/app", StaticFiles(directory=FRONTEND_DIST), name="app")
 
 # Initialize templates
 templates = Jinja2Templates(directory="templates")
@@ -36,15 +46,6 @@ def home(request: Request):
 def health_check():
     return {"status": "ok"}
 
-
-# Catch-all for SPA routing - returns React index.html
-@app.get("/app/{path:path}")
-@app.get("/app", include_in_schema=False)
-def serve_frontend(path: str = ""):
-    file_path = FRONTEND_DIST / path
-    if file_path.is_file():
-        return FileResponse(file_path)
-    return FileResponse(FRONTEND_DIST / "index.html")
 
 if __name__ == "__main__":
     import uvicorn
