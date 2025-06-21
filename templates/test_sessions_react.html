@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Test Sessions React View</h2>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@mui/material@5.15.8/umd/material-ui.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Alert } = MaterialUI;
+
+    function SessionsTable() {
+      const [sessions, setSessions] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+
+      useEffect(() => {
+        fetch('/reports/test-sessions/json')
+          .then(res => {
+            if (!res.ok) {
+              throw new Error('Failed to load sessions');
+            }
+            return res.json();
+          })
+          .then(data => setSessions(data))
+          .catch(err => setError(err.toString()))
+          .finally(() => setLoading(false));
+      }, []);
+
+      if (loading) {
+        return <CircularProgress />;
+      }
+      if (error) {
+        return <Alert severity="error">{error}</Alert>;
+      }
+      return (
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Candidate</TableCell>
+              <TableCell>Score</TableCell>
+              <TableCell>Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sessions.map(s => (
+              <TableRow key={s.id}>
+                <TableCell>{s.id}</TableCell>
+                <TableCell>{s.candidate_name}</TableCell>
+                <TableCell>{s.score}</TableCell>
+                <TableCell>{s.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      );
+    }
+
+    ReactDOM.render(<SessionsTable />, document.getElementById('root'));
+  </script>
+{% endblock %}
