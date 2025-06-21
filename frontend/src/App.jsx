@@ -5,7 +5,7 @@ import { lightTheme, darkTheme } from './theme'
 import Home from './pages/Home'
 import Sessions from './pages/Sessions'
 import Demo from './pages/Demo'
-import Header from './components/Header'
+import { Header, Footer } from './components'
 
 export default function App() {
   const [mode, setMode] = useState(() => localStorage.getItem('theme') || 'light')
@@ -30,6 +30,7 @@ export default function App() {
             <Route path="/demo" element={<Demo />} />
           </Routes>
         </Container>
+        <Footer />
       </Router>
     </ThemeProvider>
   )

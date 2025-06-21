@@ -2,6 +2,12 @@ import { Typography, Card, CardContent } from '@mui/material'
 import PrimaryButton from '../components/PrimaryButton'
 import DataTable from '../components/DataTable'
 
+const columns = [
+  { field: 'id', headerName: 'ID' },
+  { field: 'name', headerName: 'Name' },
+  { field: 'score', headerName: 'Score' },
+]
+
 const rows = [
   { id: 1, name: 'Alpha', score: 90 },
   { id: 2, name: 'Beta', score: 85 },
@@ -20,7 +26,7 @@ export default function Demo() {
           <Typography variant="body1">This is an example card.</Typography>
         </CardContent>
       </Card>
-      <DataTable rows={rows} />
+      <DataTable columns={columns} rows={rows} />
     </div>
   )
 }

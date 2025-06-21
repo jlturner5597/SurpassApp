@@ -1,37 +1,35 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material'
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
+import PropTypes from 'prop-types'
 
-export default function DataTable({ rows = [] }) {
-  if (!rows.length) return null
-  const columns = Object.keys(rows[0])
-
+export default function DataTable({ columns, rows }) {
   return (
-    <TableContainer component={Paper} sx={{ marginTop: 2 }}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <TableCell key={col}>{col}</TableCell>
+    <Table>
+      <TableHead>
+        <TableRow>
+          {columns.map(col => (
+            <TableCell key={col.field}>{col.headerName}</TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows.map((row, index) => (
+          <TableRow key={row.id || index}>
+            {columns.map(col => (
+              <TableCell key={col.field}>{row[col.field]}</TableCell>
             ))}
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, idx) => (
-            <TableRow key={idx}>
-              {columns.map((col) => (
-                <TableCell key={col}>{row[col]}</TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        ))}
+      </TableBody>
+    </Table>
   )
+}
+
+DataTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      field: PropTypes.string.isRequired,
+      headerName: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

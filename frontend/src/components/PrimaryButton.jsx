@@ -1,9 +1,11 @@
-import { Button } from '@mui/material'
+import { styled, Button } from '@mui/material'
 
-export default function PrimaryButton({ children, ...props }) {
-  return (
-    <Button variant="contained" color="primary" {...props}>
-      {children}
-    </Button>
-  )
-}
+const PrimaryButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.common.white,
+  backgroundColor: '#004687',
+  '&:hover': {
+    backgroundColor: '#002D62',
+  },
+}))
+
+export default PrimaryButton
