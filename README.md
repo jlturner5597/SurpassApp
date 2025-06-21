@@ -35,3 +35,17 @@ sessions = fetch_test_sessions()
 for session in sessions:
     print(session.id, session.reference)
 ```
+
+## Building the Frontend
+
+Windows users may encounter `EMFILE: too many open files` when installing
+frontend dependencies. The repository includes a Dockerfile that can be used
+to build the frontend without running Node locally.
+
+```bash
+docker build -t surpass-frontend -f Dockerfile .
+docker run --rm -v "$(pwd)/frontend:/app/frontend" surpass-frontend
+```
+
+After the container finishes, a `dist` folder will be created inside
+`frontend/`.
