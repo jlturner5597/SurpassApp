@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from SurpassApp.core.config import settings
@@ -19,6 +19,13 @@ templates = Jinja2Templates(directory="templates")
 app.include_router(reporting_router)
 app.include_router(imports_router)
 app.include_router(users_router)
+
+@app.get("/")
+def home(request: Request):
+    """Render the application home screen with site overview."""
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "title": "Home"}
+    )
 
 @app.get("/health")
 def health_check():
