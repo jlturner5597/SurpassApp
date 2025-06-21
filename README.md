@@ -35,3 +35,33 @@ sessions = fetch_test_sessions()
 for session in sessions:
     print(session.id, session.reference)
 ```
+
+## Frontend Setup
+
+The web UI is implemented with React. Ensure Node.js **18** or newer is
+installed and then install the frontend dependencies:
+
+```bash
+cd frontend
+npm install
+```
+
+Build the production assets:
+
+```bash
+npm run build
+```
+
+The build output should be copied to the `static/` directory so FastAPI can
+serve the compiled assets.
+
+## Running the Backend with Built Assets
+
+Once the React assets have been built into `static/`, start the FastAPI server:
+
+```bash
+python main.py
+```
+
+Navigate to `http://localhost:8000/` to see the application running with the
+generated frontend and API routes.
