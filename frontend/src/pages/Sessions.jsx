@@ -9,7 +9,6 @@ import {
   TableCell,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import PageLayout from '../components/PageLayout'
 
 export default function Sessions() {
   const [sessions, setSessions] = useState([])
@@ -60,11 +59,11 @@ export default function Sessions() {
   }
 
   return (
-    <PageLayout>
+    <>
       <Typography variant="h4" component="h2" gutterBottom>
         Sessions
       </Typography>
       {content}
-    </PageLayout>
+    </>
   )
 }
