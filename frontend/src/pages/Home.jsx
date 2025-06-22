@@ -1,16 +1,15 @@
 import { Typography, List, ListItem, Link } from '@mui/material'
-import PageLayout from '../components/PageLayout'
 
 export default function Home() {
   return (
-    <PageLayout>
-      <Typography variant="h4" component="h2" gutterBottom>
-        Welcome to Surpass Utilities
+    <>
+      <Typography variant="h3" component="h1" gutterBottom>
+        Surpass Utilities
       </Typography>
       <Typography paragraph>
-        This application offers a few tools that interface with the Surpass API.
+        A collection of small tools for working with the Surpass assessment platform.
       </Typography>
-
+      
       <Typography variant="h5" component="h3" gutterBottom>
         Site Map
       </Typography>
@@ -74,6 +73,6 @@ export default function Home() {
       <Typography paragraph>
         Use the navigation links above to explore the available utilities.
       </Typography>
-    </PageLayout>
+    </>
   )
 }
