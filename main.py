@@ -41,12 +41,6 @@ def home():
     """Serve the React single page application."""
     return FileResponse(FRONTEND_DIST / "index.html")
 
-@app.get("/legacy")
-def legacy_home(request: Request):
-    """Legacy home page with Jinja templates."""
-    return templates.TemplateResponse(
-        "home.html", {"request": request, "title": "Home"}
-    )
 
 @app.get("/health")
 def health_check():

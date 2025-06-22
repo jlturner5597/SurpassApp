@@ -48,9 +48,6 @@ export default function Header({ mode, toggleTheme }) {
           <MenuItem component={RouterLink} to="/demo" onClick={closeExtra}>
             Demo
           </MenuItem>
-          <MenuItem component="a" href="/legacy" onClick={closeExtra}>
-            Legacy Home
-          </MenuItem>
         </Menu>
         <IconButton color="inherit" onClick={toggleTheme} sx={{ marginLeft: 'auto' }}>
           {mode === 'light' ? <Brightness7 /> : <Brightness4 />}
