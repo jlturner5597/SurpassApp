@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
@@ -37,6 +37,7 @@ app.include_router(users_router)
 
 @app.get("/")
 def home():
+
     """Serve the React single page application."""
     return FileResponse(FRONTEND_DIST / "index.html")
 

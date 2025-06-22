@@ -37,10 +37,14 @@ def check_connection():
     except requests.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Auth failed: {e}")
     
-@router.get("/test-sessions", summary="Test Sessions SPA", include_in_schema=False)
-def view_test_sessions():
-    """Redirect to the frontend Sessions route."""
-    return RedirectResponse(url="/app#/sessions")
+
+@router.get("/test-sessions", summary="Test Sessions React view")
+def view_test_sessions(request: Request):
+    """Render the React-based page for viewing sessions."""
+    return templates.TemplateResponse(
+        "test_sessions_react.html",
+        {"request": request}
+    )
 
 @router.get("/test-sessions/react", summary="Test Sessions React view")
 def view_test_sessions_react():
