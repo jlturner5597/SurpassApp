@@ -21,7 +21,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename="/app">
         <Header mode={mode} toggleTheme={toggleTheme} />
         <Container sx={{ marginTop: 2 }}>
           <Routes>
