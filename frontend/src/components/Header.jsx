@@ -9,6 +9,8 @@ export default function Header({ mode, toggleTheme }) {
       <Toolbar>
         <Button color="inherit" component={RouterLink} to="/">Home</Button>
         <Button color="inherit" component={RouterLink} to="/sessions">Sessions</Button>
+        <Button color="inherit" component={RouterLink} to="/demo">Demo</Button>
+
         <IconButton color="inherit" onClick={toggleTheme} sx={{ marginLeft: 'auto' }}>
           {mode === 'light' ? <Brightness7 /> : <Brightness4 />}
         </IconButton>

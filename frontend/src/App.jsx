@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { lightTheme, darkTheme } from './theme'
 import Home from './pages/Home'
 import Sessions from './pages/Sessions'
+import Demo from './pages/Demo'
 import { Header, Footer } from './components'
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sessions" element={<Sessions />} />
+            <Route path="/demo" element={<Demo />} />
           </Routes>
         </Container>
         <Footer />
