@@ -49,3 +49,5 @@ docker run --rm -v "$(pwd)/frontend:/app/frontend" surpass-frontend
 
 After the container finishes, a `dist` folder will be created inside
 `frontend/`.
+
+Whenever you change files in `frontend/`, rerun `npm run build` (or the Docker build steps above) to regenerate the `frontend/dist` directory. The FastAPI server serves static files from this folder, so new UI changes will not appear until it is rebuilt.
