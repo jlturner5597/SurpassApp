@@ -33,15 +33,12 @@ def check_connection():
     except requests.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Auth failed: {e}")
     
-@router.get("/test-sessions", summary="Test Sessions (HTML view)")
+@router.get("/test-sessions", summary="Test Sessions React view")
 def view_test_sessions(request: Request):
-    try:
-        sessions: List[TestSession] = fetch_test_sessions()
-    except requests.HTTPError as e:
-        raise HTTPException(status_code=502, detail=str(e))
+    """Render the React-based page for viewing sessions."""
     return templates.TemplateResponse(
-        "test_sessions.html",
-        {"request": request, "sessions": sessions}
+        "test_sessions_react.html",
+        {"request": request}
     )
 
 @router.get("/test-sessions/react", summary="Test Sessions React view")
