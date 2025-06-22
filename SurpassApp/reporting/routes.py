@@ -1,5 +1,6 @@
 # surpass_app/reporting/routes.py
 from fastapi import APIRouter, Request, HTTPException
+from fastapi.responses import RedirectResponse
 from typing import List
 from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_connection
 from SurpassApp.reporting.models import TestSession
@@ -33,16 +34,10 @@ def check_connection():
     except requests.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Auth failed: {e}")
     
-@router.get("/test-sessions", summary="Test Sessions (HTML view)")
-def view_test_sessions(request: Request):
-    try:
-        sessions: List[TestSession] = fetch_test_sessions()
-    except requests.HTTPError as e:
-        raise HTTPException(status_code=502, detail=str(e))
-    return templates.TemplateResponse(
-        "test_sessions.html",
-        {"request": request, "sessions": sessions}
-    )
+@router.get("/test-sessions", summary="Test Sessions SPA", include_in_schema=False)
+def view_test_sessions():
+    """Redirect to the frontend Sessions route."""
+    return RedirectResponse(url="/app#/sessions")
 
 @router.get("/test-sessions/react", summary="Test Sessions React view")
 def view_test_sessions_react(request: Request):
