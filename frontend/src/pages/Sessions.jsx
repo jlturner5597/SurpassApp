@@ -1,14 +1,15 @@
-import { Typography, CircularProgress, Alert } from '@mui/material'
+import {
+  Typography,
+  CircularProgress,
+  Alert,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from '@mui/material'
 import { useEffect, useState } from 'react'
 import PageLayout from '../components/PageLayout'
-import DataTable from '../components/DataTable'
-
-const columns = [
-  { field: 'id', headerName: 'ID' },
-  { field: 'candidate_name', headerName: 'Candidate' },
-  { field: 'score', headerName: 'Score' },
-  { field: 'status', headerName: 'Status' },
-]
 
 export default function Sessions() {
   const [sessions, setSessions] = useState([])
@@ -34,7 +35,28 @@ export default function Sessions() {
   } else if (error) {
     content = <Alert severity="error">{error}</Alert>
   } else {
-    content = <DataTable columns={columns} rows={sessions} />
+    content = (
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Candidate</TableCell>
+            <TableCell>Score</TableCell>
+            <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {sessions.map((s) => (
+            <TableRow key={s.id}>
+              <TableCell>{s.id}</TableCell>
+              <TableCell>{s.candidate_name}</TableCell>
+              <TableCell>{s.score}</TableCell>
+              <TableCell>{s.status}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    )
   }
 
   return (
