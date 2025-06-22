@@ -5,8 +5,11 @@ from SurpassApp.reporting.client import fetch_test_sessions, check_surpass_conne
 from SurpassApp.reporting.models import TestSession
 import requests
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import FileResponse
+from pathlib import Path
 
 templates = Jinja2Templates(directory="templates")
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 
 router = APIRouter(prefix="/reports", tags=["Reporting"])
 
@@ -45,9 +48,6 @@ def view_test_sessions(request: Request):
     )
 
 @router.get("/test-sessions/react", summary="Test Sessions React view")
-def view_test_sessions_react(request: Request):
-    """Render a React-based page that fetches session data asynchronously."""
-    return templates.TemplateResponse(
-        "test_sessions_react.html",
-        {"request": request}
-    )
+def view_test_sessions_react():
+    """Serve the React application for sessions."""
+    return FileResponse(FRONTEND_DIST / "index.html")
