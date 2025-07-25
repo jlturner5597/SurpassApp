@@ -1,4 +1,4 @@
-import { Typography, Card, CardContent } from '@mui/material'
+import { Typography, Card, CardContent, Box } from '@mui/material'
 import PrimaryButton from '../components/PrimaryButton'
 import DataTable from '../components/DataTable'
 
@@ -16,7 +16,7 @@ const rows = [
 
 export default function Demo() {
   return (
-    <div>
+    <Box>
       <Typography variant="h4" component="h2" gutterBottom>
         Demo Page
       </Typography>
@@ -26,7 +26,9 @@ export default function Demo() {
           <Typography variant="body1">This is an example card.</Typography>
         </CardContent>
       </Card>
-      <DataTable columns={columns} rows={rows} />
-    </div>
+      <Box mt={2}>
+        <DataTable columns={columns} rows={rows} />
+      </Box>
+    </Box>
   )
 }

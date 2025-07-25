@@ -28,6 +28,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/sessions" element={<Sessions />} />
             <Route path="/demo" element={<Demo />} />
+            <Route path="*" element={<div style={{padding: 32}}><h2>404 - Page Not Found</h2></div>} />
           </Routes>
         </Container>
         <Footer />

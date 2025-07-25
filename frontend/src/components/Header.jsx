@@ -30,8 +30,11 @@ export default function Header({ mode, toggleTheme }) {
         <Button color="inherit" component={RouterLink} to="/">
           Home
         </Button>
-        <Button color="inherit" onClick={openReport}>
-          Reports
+        <Button color="inherit" component={RouterLink} to="/sessions">
+          Sessions
+        </Button>
+        <Button color="inherit" onClick={openExtra}>
+          Tools
         </Button>
         <Menu anchorEl={reportAnchor} open={Boolean(reportAnchor)} onClose={closeReport}>
           <MenuItem component={RouterLink} to="/sessions" onClick={closeReport}>
@@ -41,9 +44,6 @@ export default function Header({ mode, toggleTheme }) {
             Legacy Sessions
           </MenuItem>
         </Menu>
-        <Button color="inherit" onClick={openExtra}>
-          More
-        </Button>
         <Menu anchorEl={extraAnchor} open={Boolean(extraAnchor)} onClose={closeExtra}>
           <MenuItem component={RouterLink} to="/demo" onClick={closeExtra}>
             Demo
