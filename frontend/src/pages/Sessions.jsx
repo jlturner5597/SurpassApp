@@ -7,6 +7,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Box,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
 
@@ -59,11 +60,11 @@ export default function Sessions() {
   }
 
   return (
-    <>
+    <Box>
       <Typography variant="h4" component="h2" gutterBottom>
         Sessions
       </Typography>
       {content}
-    </>
+    </Box>
   )
 }
