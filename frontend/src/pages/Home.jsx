@@ -33,13 +33,13 @@ export default function Home() {
               </Typography>
               <ul style={{ paddingLeft: 20, margin: 0 }}>
                 <li>
-                  <Button component="a" href="/reports/test-sessions" size="small">Test Sessions (Legacy)</Button>
+                  <Button component={RouterLink} to="/reports/test-sessions" size="small">Test Sessions (Legacy)</Button>
                 </li>
                 <li>
-                  <Button component="a" href="/reports/test-sessions/react" size="small">React View</Button>
+                  <Button component={RouterLink} to="/reports/test-sessions/react" size="small">React View</Button>
                 </li>
                 <li>
-                  <Button component="a" href="/reports/test-sessions/json" size="small">JSON Listing</Button>
+                  <Button component={RouterLink} to="/reports/test-sessions/json" size="small">JSON Listing</Button>
                 </li>
                 <li>
                   <Button component={RouterLink} to="/sessions" size="small">Sessions (React Table)</Button>
@@ -59,7 +59,7 @@ export default function Home() {
               <Typography variant="body2" color="text.secondary" mb={2}>
                 Check the status of the imports module.
               </Typography>
-              <Button component="a" href="/imports/ping" size="small">Ping Imports</Button>
+              <Button component={RouterLink} to="/imports/ping" size="small">Ping Imports</Button>
             </CardContent>
           </Card>
         </Grid>
@@ -74,7 +74,7 @@ export default function Home() {
               <Typography variant="body2" color="text.secondary" mb={2}>
                 Check the status of the users module.
               </Typography>
-              <Button component="a" href="/users/ping" size="small">Ping Users</Button>
+              <Button component={RouterLink} to="/users/ping" size="small">Ping Users</Button>
             </CardContent>
           </Card>
         </Grid>

@@ -30,6 +30,9 @@ export default function Header({ mode, toggleTheme }) {
         <Button color="inherit" component={RouterLink} to="/">
           Home
         </Button>
+        <Button color="inherit" component={RouterLink} to="/reports/test-sessions">
+          Reports
+        </Button>
         <Button color="inherit" component={RouterLink} to="/sessions">
           Sessions
         </Button>
@@ -37,16 +40,25 @@ export default function Header({ mode, toggleTheme }) {
           Tools
         </Button>
         <Menu anchorEl={reportAnchor} open={Boolean(reportAnchor)} onClose={closeReport}>
-          <MenuItem component={RouterLink} to="/sessions" onClick={closeReport}>
-            Sessions
+          <MenuItem component={RouterLink} to="/reports/test-sessions" onClick={closeReport}>
+            Test Sessions (Legacy)
           </MenuItem>
-          <MenuItem component="a" href="/reports/test-sessions" onClick={closeReport}>
-            Legacy Sessions
+          <MenuItem component={RouterLink} to="/reports/test-sessions/react" onClick={closeReport}>
+            React View
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/reports/test-sessions/json" onClick={closeReport}>
+            JSON Listing
           </MenuItem>
         </Menu>
         <Menu anchorEl={extraAnchor} open={Boolean(extraAnchor)} onClose={closeExtra}>
           <MenuItem component={RouterLink} to="/demo" onClick={closeExtra}>
             Demo
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/imports/ping" onClick={closeExtra}>
+            Ping Imports
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/users/ping" onClick={closeExtra}>
+            Ping Users
           </MenuItem>
         </Menu>
         <IconButton color="inherit" onClick={toggleTheme} sx={{ marginLeft: 'auto' }}>
